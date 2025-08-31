@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('selesais', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ngajar_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('ngambek_id')->unique()->constrained()->cascadeOnDelete();
             $table->dateTime('kapan');
             $table->string('gimana');
             $table->timestamps();
