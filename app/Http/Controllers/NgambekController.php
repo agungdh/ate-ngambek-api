@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\NgambekRequest;
+use App\Http\Requests\NgambekSelesaiRequest;
 use App\Models\Ngambek;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class NgambekController extends Controller
      */
     public function index()
     {
-        return Ngambek::all();
+        return Ngambek::with('selesai')->get();
     }
 
     /**
@@ -37,6 +38,8 @@ class NgambekController extends Controller
      */
     public function show(Ngambek $ngambek)
     {
+        $ngambek->load('selesai');
+
         return $ngambek;
     }
 
@@ -62,5 +65,13 @@ class NgambekController extends Controller
     public function destroy(Ngambek $ngambek)
     {
         $ngambek->delete();
+    }
+
+    public function selesai(NgambekSelesaiRequest $request, Ngambek $ngambek) {
+        $ngambek->selesai()->create($request->validated());
+    }
+
+    public function batalSelesai(Ngambek $ngambek) {
+        $ngambek->selesai()->delete();
     }
 }

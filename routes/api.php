@@ -4,6 +4,10 @@ use App\Http\Controllers\NgambekController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+Route::prefix('/ngambek/{ngambek}')->group(function () {
+   Route::post('/selesai', [NgambekController::class, 'selesai']);
+   Route::delete('/selesai', [NgambekController::class, 'batalSelesai']);
+});
 Route::resource('ngambek', NgambekController::class);
 
 Route::get('/user', function (Request $request) {
